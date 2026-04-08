@@ -227,19 +227,17 @@ CREATE TABLE items (
 
 ## 📸 Screenshots
 
-> Add your screenshots to the `/screenshots` folder and update paths below
-
 | Page | Preview |
 |------|---------|
-| Login | `screenshots/login.png` |
-| Register | `screenshots/register.png` |
-| Dashboard | `screenshots/dashboard.png` |
-| Add Item | `screenshots/add-item.png` |
-| Edit Item | `screenshots/edit-item.png` |
-| Delete Confirm | `screenshots/delete-confirm.png` |
-| Forgot Password | `screenshots/forgot-password.png` |
-| Reset Password | `screenshots/reset-password.png `
-| MySQL Tables | `screenshots/mysql-tables.png` |
+| Login | ![Login](screenshots/login.png) |
+| Register | ![Register](screenshots/register.png) |
+| Dashboard | ![Dashboard](screenshots/dashboard.png) |
+| Add Item | ![Add Item](screenshots/add-item.png) |
+| Edit Item | ![Edit Item](screenshots/edit-item.png) |
+| Delete Confirm | ![Delete](screenshots/delete-confirm.png) |
+| Forgot Password | ![Forgot](screenshots/forgot-password.png) |
+| Reset Password | ![Reset](screenshots/reset-password.png) |
+| MySQL Tables | ![MySQL](screenshots/mysql-tables.png) |
 
 ---
 

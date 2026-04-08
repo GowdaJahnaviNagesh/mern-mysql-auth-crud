@@ -1,10 +1,38 @@
-<<<<<<< HEAD
-# MERN + MySQL Authentication & CRUD Dashboard
+# 🔐 MERN + MySQL Auth & CRUD Dashboard
 
-A full-stack application with **user authentication** (register, login, forgot/reset password) and a **dashboard with full CRUD** operations, built with:
+A production-ready full-stack web application featuring **JWT authentication** and a **dashboard with full CRUD operations**, built with the MERN stack using MySQL as the relational database.
 
-- **Frontend**: React (Vite) + Tailwind CSS + Axios + Context API
-- **Backend**: Node.js + Express.js + MySQL (mysql2) + JWT + bcryptjs + Nodemailer
+> Built as part of CampusPe Full Stack Development Assignment — Mentor: Jacob Dennis
+
+---
+
+## 🖥️ Live Features
+
+- ✅ User Registration & Login
+- ✅ JWT-based Authentication (auto token inject + auto logout)
+- ✅ Forgot Password via Email Link
+- ✅ Reset Password with Expiring Token (1 hour)
+- ✅ Protected & Public Routes
+- ✅ Dashboard with Live Stats (Total / Active / Pending / Completed)
+- ✅ Create, Read, Update, Delete items
+- ✅ Quick Status Update per item
+- ✅ Delete Confirmation Modal
+- ✅ Loading states, Error & Success alerts
+- ✅ Fully Responsive (Mobile + Desktop)
+
+---
+
+## 🧰 Tech Stack
+
+| Layer     | Technology                              |
+|-----------|-----------------------------------------|
+| Frontend  | React 18 (Vite), Tailwind CSS, Axios    |
+| Backend   | Node.js, Express.js                     |
+| Database  | MySQL 8 (mysql2, raw SQL, no ORM)       |
+| Auth      | JWT (jsonwebtoken), bcryptjs            |
+| Email     | Nodemailer (Gmail SMTP)                 |
+| Routing   | React Router v6                         |
+| State     | React Context API                       |
 
 ---
 
@@ -13,86 +41,68 @@ A full-stack application with **user authentication** (register, login, forgot/r
 ```
 mern-mysql-auth-crud/
 ├── backend/
-│   ├── config/
-│   │   └── db.js                  # MySQL connection pool
+│   ├── config/db.js               # MySQL connection pool
 │   ├── controllers/
 │   │   ├── authController.js      # Register, Login, Forgot/Reset Password
 │   │   └── itemController.js      # CRUD + Stats
 │   ├── middleware/
-│   │   ├── auth.js                # JWT verification middleware
+│   │   ├── auth.js                # JWT verification
 │   │   └── errorHandler.js        # Global error handler
 │   ├── routes/
 │   │   ├── authRoutes.js          # /api/auth/*
-│   │   └── itemRoutes.js          # /api/items/* and /api/stats
+│   │   └── itemRoutes.js          # /api/items/*
 │   ├── .env.example
-│   ├── .gitignore
-│   ├── server.js
-│   └── package.json
+│   └── server.js
 ├── frontend/
-│   ├── src/
-│   │   ├── api/
-│   │   │   ├── axios.js           # Axios instance + interceptors
-│   │   │   ├── authApi.js         # Auth API calls
-│   │   │   └── itemApi.js         # Item CRUD API calls
-│   │   ├── context/
-│   │   │   └── AuthContext.jsx    # Global auth state
-│   │   ├── components/
-│   │   │   ├── Login.jsx
-│   │   │   ├── Register.jsx
-│   │   │   ├── ForgotPassword.jsx
-│   │   │   ├── ResetPassword.jsx
-│   │   │   ├── Dashboard.jsx      # Main dashboard with CRUD + Stats
-│   │   │   ├── ProtectedRoute.jsx
-│   │   │   └── PublicRoute.jsx
-│   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── index.css
-│   ├── index.html
-│   ├── vite.config.js
-│   ├── tailwind.config.js
-│   ├── postcss.config.js
-│   └── package.json
+│   └── src/
+│       ├── api/                   # Axios instance + API functions
+│       ├── context/               # AuthContext (global auth state)
+│       ├── components/            # All pages and route guards
+│       ├── App.jsx                # Router setup
+│       └── index.css              # Tailwind + custom classes
 ├── database.sql                   # Full MySQL schema
 └── README.md
 ```
 
 ---
 
-## ⚙️ Prerequisites
+## ⚙️ Local Setup Guide
 
+### Prerequisites
 - Node.js v18+
 - MySQL Server 8.0+
-- npm or yarn
+- npm
 
 ---
 
-## 🗄️ Step 1: MySQL Database Setup
+### Step 1 — MySQL Database
 
-### Option A: Using MySQL CLI
 ```bash
+# Option A: via terminal
 mysql -u root -p < database.sql
+
+# Option B: open database.sql in MySQL Workbench or phpMyAdmin and run it
 ```
 
-### Option B: Using MySQL Workbench / phpMyAdmin
-1. Open your MySQL client
-2. Run the contents of `database.sql`
-3. Verify: `SHOW TABLES;` should show `users` and `items`
+Verify:
+```sql
+USE mern_auth_db;
+SHOW TABLES;
+-- Should show: users, items
+```
 
 ---
 
-## 🔧 Step 2: Backend Setup
+### Step 2 — Backend
 
 ```bash
 cd backend
-
-# Install dependencies
 npm install
-
-# Create .env file from example
 cp .env.example .env
 ```
 
-### Edit `.env` — fill in your values:
+Edit `.env` and fill in your values:
+
 ```env
 PORT=5000
 NODE_ENV=development
@@ -100,77 +110,55 @@ NODE_ENV=development
 DB_HOST=localhost
 DB_PORT=3306
 DB_USER=root
-DB_PASSWORD=YOUR_MYSQL_PASSWORD_HERE
+DB_PASSWORD=your_mysql_password
 DB_NAME=mern_auth_db
 
-JWT_SECRET=change_this_to_a_long_random_string
+JWT_SECRET=your_long_random_secret_key
 JWT_EXPIRE=7d
 
-# Gmail: create an App Password at https://myaccount.google.com/apppasswords
 EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
 EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your_gmail_app_password
-EMAIL_FROM=noreply@yourapp.com
+EMAIL_FROM=your_email@gmail.com
 
 CLIENT_URL=http://localhost:5173
 ```
 
-```bash
-# Start backend (with auto-reload)
-npm run dev
-```
+> **Gmail App Password:** Go to [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords) → Generate for "Mail"
 
-Backend runs at: **http://localhost:5000**
+```bash
+npm run dev
+# Backend running at http://localhost:5000
+```
 
 ---
 
-## 💻 Step 3: Frontend Setup
+### Step 3 — Frontend
 
 ```bash
 cd frontend
-
-# Install dependencies
 npm install
-
-# Start dev server
 npm run dev
+# Frontend running at http://localhost:5173
 ```
-
-Frontend runs at: **http://localhost:5173**
 
 ---
 
-## 🚀 Running Both Together
+## 📡 API Reference
 
-Open two terminals:
+### Auth Endpoints
 
-**Terminal 1 (Backend):**
-```bash
-cd backend && npm run dev
-```
-
-**Terminal 2 (Frontend):**
-```bash
-cd frontend && npm run dev
-```
-
-Open **http://localhost:5173** in your browser.
-
----
-
-## 📡 API Endpoints
-
-### Auth (`/api/auth`)
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
+| Method | Endpoint | Description | Protected |
+|--------|----------|-------------|-----------|
 | POST | `/api/auth/register` | Register new user | No |
-| POST | `/api/auth/login` | Login user | No |
+| POST | `/api/auth/login` | Login and get token | No |
 | GET | `/api/auth/me` | Get current user | Yes |
 | POST | `/api/auth/forgot-password` | Send reset email | No |
 | POST | `/api/auth/reset-password` | Reset with token | No |
 
-### Items (`/api/items`) — All Protected
+### Item Endpoints (all protected)
+
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | GET | `/api/items` | Get all items for logged-in user |
@@ -178,85 +166,91 @@ Open **http://localhost:5173** in your browser.
 | POST | `/api/items` | Create new item |
 | PUT | `/api/items/:id` | Update item |
 | DELETE | `/api/items/:id` | Delete item |
-| GET | `/api/items/stats` | Get stats (total/active/pending/completed) |
+| GET | `/api/items/stats` | Get stats summary |
 
-### Request/Response Examples
+### Example Request — Create Item
 
-**Register:**
-```json
-POST /api/auth/register
-{ "name": "John Doe", "email": "john@example.com", "password": "secret123" }
-
-Response: { "success": true, "token": "...", "user": { "id": 1, "name": "John Doe", ... } }
-```
-
-**Create Item:**
 ```json
 POST /api/items
-Headers: { "Authorization": "Bearer <token>" }
-{ "title": "My Task", "description": "Details here", "status": "active" }
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "title": "Complete assignment",
+  "description": "Submit before deadline",
+  "status": "active"
+}
 ```
 
 ---
 
-## 🔒 Security Features
+## 🗄️ Database Schema
 
-- Passwords hashed with **bcryptjs** (salt rounds: 10)
-- **JWT tokens** with configurable expiry
-- **Parameterized queries** throughout — SQL injection prevention
+```sql
+-- Users
+CREATE TABLE users (
+  id                INT AUTO_INCREMENT PRIMARY KEY,
+  name              VARCHAR(100) NOT NULL,
+  email             VARCHAR(100) NOT NULL UNIQUE,
+  phone             VARCHAR(20),
+  password          VARCHAR(255) NOT NULL,
+  reset_token       VARCHAR(255) DEFAULT NULL,
+  reset_token_expiry DATETIME    DEFAULT NULL,
+  created_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at        TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Items
+CREATE TABLE items (
+  id          INT AUTO_INCREMENT PRIMARY KEY,
+  user_id     INT NOT NULL,
+  title       VARCHAR(255) NOT NULL,
+  description TEXT,
+  status      ENUM('active','pending','completed') DEFAULT 'active',
+  created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+```
+
+---
+
+## 🔒 Security Highlights
+
+- Passwords hashed with **bcryptjs** (10 salt rounds)
+- All SQL queries use **parameterized statements** (no SQL injection)
+- JWT tokens with configurable expiry
 - Password reset tokens expire in **1 hour**
-- Token stored in **localStorage** with auto-logout on 401
-- CORS configured to only allow frontend origin
+- CORS restricted to frontend origin only
+- `.env` never committed to Git
 
 ---
 
-## 🎨 Features
+## 📸 Screenshots
 
-- ✅ User Registration & Login
-- ✅ JWT-based authentication with auto token injection
-- ✅ Forgot password via email link
-- ✅ Reset password with expiring token
-- ✅ Protected routes (redirect if not authenticated)
-- ✅ Dashboard with live stats (Total / Active / Pending / Completed)
-- ✅ Create, Read, Update, Delete items
-- ✅ Quick status update per item
-- ✅ Delete confirmation modal
-- ✅ Loading states on all async operations
-- ✅ Error and success alert messages
-- ✅ Responsive design (mobile + desktop)
-- ✅ Auto logout on expired token
+> Add your screenshots to the `/screenshots` folder and update paths below
 
----
-
-## 📧 Email Setup (Password Reset)
-
-For Gmail, create an **App Password**:
-1. Go to https://myaccount.google.com/security
-2. Enable 2-Step Verification
-3. Go to **App Passwords** → Generate for "Mail"
-4. Use that 16-character password as `EMAIL_PASS` in your `.env`
+| Page | Preview |
+|------|---------|
+| Login | `screenshots/login.png` |
+| Register | `screenshots/register.png` |
+| Dashboard | `screenshots/dashboard.png` |
+| Add Item | `screenshots/add-item.png` |
+| Edit Item | `screenshots/edit-item.png` |
+| Delete Confirm | `screenshots/delete-confirm.png` |
+| Forgot Password | `screenshots/forgot-password.png` |
+| Reset Password | `screenshots/reset-password.png `
+| MySQL Tables | `screenshots/mysql-tables.png` |
 
 ---
 
-## 🛠️ Common Issues
+## 👨‍💻 Author
 
-| Issue | Fix |
-|-------|-----|
-| `MySQL Connection Error` | Check DB credentials in `.env`, ensure MySQL is running |
-| `CORS error` | Ensure `CLIENT_URL` in backend `.env` matches your frontend port |
-| `Token failed` | JWT_SECRET mismatch — use same value throughout |
-| Email not sending | Check Gmail App Password; enable "Less secure apps" or use App Password |
-| `ER_DUP_ENTRY` | Email already registered — use a different email |
+Gowda Jahnavi Nagesh
+
 
 ---
 
-## 📤 GitHub Push Checklist
+## 📄 License
 
-- [ ] `.gitignore` includes `.env` and `node_modules/`
-- [ ] No real credentials committed
-- [ ] `database.sql` included
-- [ ] `README.md` complete
-- [ ] Repository is **PUBLIC**
-=======
-# mern-mysql-auth-crud
->>>>>>> b5d9cca94400271067e6f7e2cb00088747137f53
+This project is for educational purposes as part of the CampusPe Full Stack Development Assignment.

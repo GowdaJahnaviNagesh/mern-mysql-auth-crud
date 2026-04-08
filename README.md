@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # MERN + MySQL Authentication & CRUD Dashboard
 
 A full-stack application with **user authentication** (register, login, forgot/reset password) and a **dashboard with full CRUD** operations, built with:
@@ -256,3 +257,6 @@ For Gmail, create an **App Password**:
 - [ ] `database.sql` included
 - [ ] `README.md` complete
 - [ ] Repository is **PUBLIC**
+=======
+# mern-mysql-auth-crud
+>>>>>>> b5d9cca94400271067e6f7e2cb00088747137f53

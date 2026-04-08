@@ -17,6 +17,8 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+       console.log('Token from URL:', token)      // ← add this line
+       console.log('Token length:', token?.length)
     setError(''); setSuccess('')
 
     if (!form.password) { setError('Password is required'); return }

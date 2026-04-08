@@ -2,7 +2,6 @@
 
 A production-ready full-stack web application featuring **JWT authentication** and a **dashboard with full CRUD operations**, built with the MERN stack using MySQL as the relational database.
 
-> Built as part of CampusPe Full Stack Development Assignment — Mentor: Jacob Dennis
 
 ---
 
@@ -249,8 +248,4 @@ CREATE TABLE items (
 Gowda Jahnavi Nagesh
 
 
----
 
-## 📄 License
-
-This project is for educational purposes as part of the CampusPe Full Stack Development Assignment.
